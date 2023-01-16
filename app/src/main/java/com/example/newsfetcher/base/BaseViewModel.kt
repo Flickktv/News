@@ -10,7 +10,7 @@ abstract class BaseViewModel<VIEW_STATE> : ViewModel() {
 
     abstract fun initialViewState(): VIEW_STATE
 
-    abstract suspend fun reduce(event: Event, previousState: VIEW_STATE): VIEW_STATE?
+    abstract fun reduce(event: Event, previousState: VIEW_STATE): VIEW_STATE?
 
     fun processUiEvent(event: Event) {
         updateState(event)

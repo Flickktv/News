@@ -1,4 +1,30 @@
 package com.example.newsfetcher.feature.mainscreen
 
-class MainScreenViewModel {
+import androidx.lifecycle.viewModelScope
+import com.example.newsfetcher.base.BaseViewModel
+import com.example.newsfetcher.base.Event
+import com.example.newsfetcher.feature.domain.ArticlesInteractor
+import kotlinx.coroutines.launch
+
+class MainScreenViewModel(private val interactor: ArticlesInteractor) : BaseViewModel<ViewState>() {
+    override fun initialViewState() = ViewState(articles = emptyList())
+
+    override fun reduce(event: Event, previousState: ViewState): ViewState? {
+        when(event) {
+            is DataEvent.LoadArticles -> {
+                viewModelScope.launch {
+                    interactor.getArticles().fold(
+                        onError = {
+
+                        },
+                        onSuccess = {
+                            processDataEvent(DataEvent.OnLoadArticlesSucceed(it))
+                        }
+                    )
+                }
+                return null
+            }
+            else -> return null
+        }
+    }
 }
