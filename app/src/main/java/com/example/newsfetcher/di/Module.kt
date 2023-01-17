@@ -5,7 +5,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "http://newsapi.org/"
+private const val BASE_URL = "https://newsapi.org/"
 
 const val API_KEY = "35df5fc13a9d40c48561b9892c3f38de"
 

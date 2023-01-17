@@ -6,7 +6,7 @@ import kotlinx.coroutines.awaitAll
 
 fun ArticleRemoteModel.toDomain() = ArticleModel(
     title = title,
-    author = author,
-    description = description,
+    author = author ?: "",
+    description = description ?: "",
     url = url
 )
