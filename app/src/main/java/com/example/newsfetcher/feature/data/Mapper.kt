@@ -5,8 +5,10 @@ import com.example.newsfetcher.feature.domain.ArticleModel
 import kotlinx.coroutines.awaitAll
 
 fun ArticleRemoteModel.toDomain() = ArticleModel(
-    title = title,
+    title = title ?: "",
     author = author ?: "",
     description = description ?: "",
-    url = url
+    url = url,
+    urlToImage = urlToImage ?: "",
+    publishedAt = publishedAt ?: ""
 )

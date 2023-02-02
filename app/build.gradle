@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
+apply plugin: 'kotlin-kapt'
+
 
 android {
     namespace 'com.example.newsfetcher'
@@ -35,7 +37,8 @@ android {
 dependencies {
     def lifecycle_version = "2.5.1"
     def retrofit_version = "2.9.0"
-    def koin_android_version= "3.3.0"
+    def koin_android_version = "3.3.0"
+    def room_version = "2.3.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -52,11 +55,18 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     //Coroutines
-    implementation"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
     //Gson
     implementation "com.google.code.gson:gson:$retrofit_version"
     //Converter
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     // Koin main features for Android
     implementation "io.insert-koin:koin-android:$koin_android_version"
+    //Room
+    //noinspection GradleDependency
+    implementation "androidx.room:room-runtime:$room_version"
+
+    kapt "androidx.room:room-compiler:$room_version"
+
+
 }
