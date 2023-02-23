@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
+import com.example.newsfetcher.feature.bookmarks.ui.BookmarksFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
@@ -35,6 +36,10 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
         ivSearch.setOnClickListener {
             viewModel.processUiEvent(UiEvent.OnSearchButtonClicked)
+        }
+
+        adapter.onItemClicked = {
+            parentFragmentManager.beginTransaction().replace(R.id.container, FragmentDescribe()).commit()
         }
 
         etSearch.addTextChangedListener(object : TextWatcher {
