@@ -8,11 +8,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
-import com.example.newsfetcher.feature.bookmarks.ui.BookmarksFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
@@ -23,9 +21,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
     private val tvTitle: TextView by lazy {requireActivity().findViewById(R.id.tvTitle)}
     private val etSearch: EditText by lazy {requireActivity().findViewById(R.id.etSearch)}
     private val adapter: ArticlesAdapter by lazy {
-        ArticlesAdapter { index ->
+        ArticlesAdapter(
+        { index ->
             viewModel.processUiEvent(UiEvent.OnArticlesClicked(index))
-        }
+        },
+        { model ->
+            viewModel.processUiEvent(UiEvent.OpenArticle(model)) })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
             viewModel.processUiEvent(UiEvent.OnSearchButtonClicked)
         }
 
-        adapter.onItemClicked = {
+        adapter.openItemClicked = {
             parentFragmentManager.beginTransaction().replace(R.id.container, FragmentDescribe()).commit()
         }
 

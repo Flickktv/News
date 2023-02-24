@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.newsfetcher.R
-import com.example.newsfetcher.feature.data.model.ArticleRemoteModel
 import com.example.newsfetcher.feature.domain.ArticleModel
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.definition.indexKey
 
 class FragmentDescribe : Fragment(R.layout.fragment_describe) {
     val viewModel: MainScreenViewModel by viewModel()
@@ -19,6 +19,6 @@ class FragmentDescribe : Fragment(R.layout.fragment_describe) {
 
     }
     private fun render(viewState: ViewState) {
-        collapsingBar.title =
+        collapsingBar.title = viewState.articleModel.title.toString()
     }
 }

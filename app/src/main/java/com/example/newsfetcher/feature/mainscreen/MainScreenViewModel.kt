@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsfetcher.base.BaseViewModel
 import com.example.newsfetcher.base.Event
 import com.example.newsfetcher.feature.bookmarks.domain.BookmarksInteractor
+import com.example.newsfetcher.feature.domain.ArticleModel
 import com.example.newsfetcher.feature.domain.ArticlesInteractor
 import kotlinx.coroutines.launch
 
@@ -15,6 +16,7 @@ class MainScreenViewModel(private val interactor: ArticlesInteractor, private va
     }
 
     override fun initialViewState() = ViewState(
+        articleModel = ArticleModel(null, null, null,null, null,null),
         articlesShown = emptyList(),
         articleList = emptyList(),
         isSearchEnabled = false
@@ -42,6 +44,11 @@ class MainScreenViewModel(private val interactor: ArticlesInteractor, private va
                 viewModelScope.launch {
                     bookmarksInteractor.create(previousState.articlesShown[event.index])
                 }
+                return null
+            }
+
+            is UiEvent.OpenArticle -> {
+                previousState.articleModel = event.model
                 return null
             }
 

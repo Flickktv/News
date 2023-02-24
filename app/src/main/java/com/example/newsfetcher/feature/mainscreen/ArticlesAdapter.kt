@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
 import com.example.newsfetcher.feature.domain.ArticleModel
 
-class ArticlesAdapter(var onItemClicked: (Int) -> Unit) : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>() {
+class ArticlesAdapter(var onItemClicked: (Int) -> Unit, var openItemClicked: (ArticleModel) -> Unit) : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>() {
     private var articlesData: List<ArticleModel> = emptyList()
 
     /**
@@ -33,7 +33,8 @@ class ArticlesAdapter(var onItemClicked: (Int) -> Unit) : RecyclerView.Adapter<A
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
         viewHolder.itemView.setOnClickListener {
-            onItemClicked(position)
+            onItemClicked.invoke(position)
+            openItemClicked.invoke(articlesData[position])
         }
 
         // Get element from your dataset at this position and replace the
