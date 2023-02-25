@@ -5,16 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsfetcher.base.BaseViewModel
 import com.example.newsfetcher.base.Event
 import com.example.newsfetcher.feature.bookmarks.domain.BookmarksInteractor
+import com.example.newsfetcher.feature.mainscreen.UiEvent
 import kotlinx.coroutines.launch
 
-class BookmarksScreenViewModel(private val interactor: BookmarksInteractor) : BaseViewModel<ViewState>() {
+class BookmarksScreenViewModel(private val interactor: BookmarksInteractor) : BaseViewModel<FavoriteViewState>() {
 
     init {
         processDataEvent(DataEvent.LoadBookmarks)
     }
-    override fun initialViewState(): ViewState = ViewState(bookmarksArticle = emptyList())
+    override fun initialViewState(): FavoriteViewState = FavoriteViewState(bookmarksArticle = emptyList())
 
-    override suspend fun reduce(event: Event, previousState: ViewState): ViewState? {
+    override suspend fun reduce(event: Event, previousState: FavoriteViewState): FavoriteViewState? {
         when(event) {
             is DataEvent.LoadBookmarks -> {
                 viewModelScope.launch {
@@ -30,6 +31,13 @@ class BookmarksScreenViewModel(private val interactor: BookmarksInteractor) : Ba
             is DataEvent.OnSuccessBookmarksLoaded -> {
                 Log.d("Room", "articleBookmark = ${event.bookmarksArticle}")
                 return previousState.copy(bookmarksArticle = event.bookmarksArticle)
+            }
+            is UiEvent.OnArticlesClicked -> {
+                previousState.bookmarksArticle[event.index].favoriteFlag = false
+                viewModelScope.launch {
+                    interactor.delete(previousState.bookmarksArticle[event.index])
+                }
+                return null
             }
             else -> return null
         }

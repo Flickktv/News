@@ -9,20 +9,19 @@ import com.example.newsfetcher.feature.domain.ArticleModel
 import com.example.newsfetcher.feature.domain.ArticlesInteractor
 import kotlinx.coroutines.launch
 
-class MainScreenViewModel(private val interactor: ArticlesInteractor, private val bookmarksInteractor: BookmarksInteractor) : BaseViewModel<ViewState>() {
+class MainScreenViewModel(private val interactor: ArticlesInteractor, private val bookmarksInteractor: BookmarksInteractor) : BaseViewModel<MainViewState>() {
 
     init {
         processDataEvent(DataEvent.LoadArticles)
     }
 
-    override fun initialViewState() = ViewState(
-        articleModel = ArticleModel(null, null, null,null, null,null),
+    override fun initialViewState() = MainViewState(
         articlesShown = emptyList(),
         articleList = emptyList(),
         isSearchEnabled = false
     )
 
-    override suspend fun reduce(event: Event, previousState: ViewState): ViewState? {
+    override suspend fun reduce(event: Event, previousState: MainViewState): MainViewState? {
         when(event) {
             is DataEvent.LoadArticles -> {
                 viewModelScope.launch {
@@ -41,14 +40,10 @@ class MainScreenViewModel(private val interactor: ArticlesInteractor, private va
                 return previousState.copy(articleList = event.articles, articlesShown = event.articles)
             }
             is UiEvent.OnArticlesClicked -> {
+                previousState.articleList[event.index].favoriteFlag = true
                 viewModelScope.launch {
                     bookmarksInteractor.create(previousState.articlesShown[event.index])
                 }
-                return null
-            }
-
-            is UiEvent.OpenArticle -> {
-                previousState.articleModel = event.model
                 return null
             }
 

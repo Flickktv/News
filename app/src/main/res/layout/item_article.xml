@@ -4,17 +4,27 @@
     android:layout_height="100dp"
     android:layout_margin="16dp">
 
-    
+
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_margin="4dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp" />
+
     <TextView
         android:id="@+id/tvDate"
-        android:layout_gravity="bottom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" />
+
+    <ImageView
+        android:id="@+id/ivStar"
+        android:layout_width="24dp"
+        android:elevation="5dp"
+        android:layout_height="24dp"
+        android:src="@drawable/favorite_button"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="70dp"/>
+
 
 </androidx.cardview.widget.CardView>
