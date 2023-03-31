@@ -1,7 +1,7 @@
-package com.example.newsfetcher.feature.data
+package com.example.newsfetcher.feature.mainscreen.data
 
-import com.example.newsfetcher.feature.data.model.ArticleRemoteModel
-import com.example.newsfetcher.feature.domain.ArticleModel
+import com.example.newsfetcher.feature.mainscreen.data.model.ArticleRemoteModel
+import com.example.newsfetcher.feature.mainscreen.domain.ArticleModel
 import kotlinx.coroutines.awaitAll
 
 fun ArticleRemoteModel.toDomain() = ArticleModel(

@@ -10,9 +10,4 @@
         android:icon="@drawable/ic_baseline_bookmark_24"
         android:title="@string/favourite"/>
 
-    <item
-        android:id="@+id/itemSearch"
-        android:icon="@drawable/ic_baseline_search_24"
-        android:title="@string/fefe"/>
-
 </menu>

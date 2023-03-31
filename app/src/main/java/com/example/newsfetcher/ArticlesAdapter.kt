@@ -1,13 +1,14 @@
-package com.example.newsfetcher.feature.mainscreen
+package com.example.newsfetcher
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsfetcher.R
-import com.example.newsfetcher.feature.domain.ArticleModel
+import com.example.newsfetcher.feature.mainscreen.domain.ArticleModel
 
 class ArticlesAdapter(
     var onItemClicked: (Int) -> Unit,
@@ -27,7 +28,7 @@ class ArticlesAdapter(
         init {
             tvTitle = view.findViewById(R.id.tvTitle)
             tvDate = view.findViewById(R.id.tvDate)
-            ivStar = view.findViewById<ImageView?>(R.id.ivStar).also { it.visibility }
+            ivStar = view.findViewById(R.id.ivStar)
         }
 
     }
@@ -47,6 +48,7 @@ class ArticlesAdapter(
         viewHolder.ivStar.setOnClickListener {
             onItemClicked.invoke(position)
         }
+
         viewHolder.itemView.setOnClickListener {
             openItemClicked.invoke(articlesData[position])
         }

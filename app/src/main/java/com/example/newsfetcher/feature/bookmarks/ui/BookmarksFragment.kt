@@ -5,11 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
-import com.example.newsfetcher.feature.domain.ArticleModel
+import com.example.newsfetcher.feature.mainscreen.domain.ArticleModel
 import com.example.newsfetcher.feature.info.ui.FragmentDescribe
-import com.example.newsfetcher.feature.mainscreen.ArticlesAdapter
-import com.example.newsfetcher.feature.mainscreen.UiEvent
-import com.example.newsfetcher.feature.mainscreen.MainViewState
+import com.example.newsfetcher.ArticlesAdapter
+import com.example.newsfetcher.feature.mainscreen.ui.UiEvent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
@@ -21,19 +20,22 @@ class BookmarksFragment : Fragment(R.layout.fragment_bookmarks) {
             { index ->
                 viewModel.processUiEvent(UiEvent.OnArticlesClicked(index))
             },
-            { model ->openArticle(model) })
+            { model -> openArticle(model) })
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.viewState.observe(viewLifecycleOwner, ::render)
         recyclerView.adapter = adapter
+
     }
     private fun render(viewState: FavoriteViewState) {
+
         adapter.setData(viewState.bookmarksArticle)
 
     }
     private fun openArticle(currentArticle: ArticleModel) {
+
         val bundle = Bundle()
         bundle.putParcelable("info", currentArticle)
         parentFragmentManager.beginTransaction().add(

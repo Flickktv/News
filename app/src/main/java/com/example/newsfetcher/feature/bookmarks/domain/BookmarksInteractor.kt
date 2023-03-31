@@ -5,7 +5,7 @@ import com.example.newsfetcher.base.attempt
 import com.example.newsfetcher.feature.bookmarks.data.local.BookmarksRepository
 import com.example.newsfetcher.feature.bookmarks.data.toDomain
 import com.example.newsfetcher.feature.bookmarks.data.toEntity
-import com.example.newsfetcher.feature.domain.ArticleModel
+import com.example.newsfetcher.feature.mainscreen.domain.ArticleModel
 import org.koin.androidx.viewmodel.resolveViewModel
 
 class BookmarksInteractor(private val bookmarksRepository: BookmarksRepository) {
